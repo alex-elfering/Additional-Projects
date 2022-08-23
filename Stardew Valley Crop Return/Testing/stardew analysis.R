@@ -4,13 +4,11 @@ source("~/GitHub/Additional-Projects/Stardew Valley Crop Return/new stardew vari
 source("~/GitHub/Additional-Projects/Stardew Valley Crop Return/new stardew functions.R")
 
 return_crop_printer <- rbindlist(crop_printer(i = select_crops, n = 10000))
-return_crop_quality <- crop_quality(return_crop_printer, fertilizer_level = fertilizer_select)
+return_crop_quality <- crop_quality(return_crop_printer, farm_level = level_select, fertilizer_level = fertilizer_select)
 return_additional <- additional_crops(return_crop_quality)
 return_crop_revenue <- crop_revenue(return_additional)
 
-return_crop_revenue %>%
-  group_by()
-
+# testing the range of percent for each crop quality  ----
 return_crop_revenue %>%
   group_by(iter,
            quality) %>%
@@ -23,7 +21,7 @@ return_crop_revenue %>%
   summarise(min_p = min(pct),
             max_p = max(pct))
 
-
+# examining the range of revenue for each crop based on all simulations ----
 crop_pct_range <- return_crop_revenue %>%
   group_by(iter, crop) %>%
   mutate(total_revenue = init_revenue + (additional *add_revenue),
@@ -83,7 +81,7 @@ gg_crop_range <- crop_pct_range %>%
 ts <- gsub(':', '', Sys.time())
 ggsave(gg_crop_range, file = glue('gg_crop_range {ts}.png'), width = 12, height = 6)
 
-
+# examining how much additional revenue is made when upgrading fertilizer or increasing farm levels
 compare_fert <- list()
 for(fert in 0:3){
   
