@@ -29,7 +29,7 @@ crop_printer <- function(i = select_crops, n = 10000){
   
   return(crop_list)
 }
-crop_quality <- function(df, fertilizer_level = 0){
+crop_quality <- function(df, level_select = 0, fertilizer_level = 0){
   # this function simulates the probability of obtaining a quality of the crop based on the fertilizer selected
   # inputs:
   #   df is the data frame of crops
@@ -72,9 +72,15 @@ crop_quality <- function(df, fertilizer_level = 0){
     
     df_fert<-cbind(df_quality, farm_levels)
     
-    df_fert[, is_iridium := ifelse(rand_int <= iridium, 1, 0)]
-    df_fert[, is_gold := ifelse(rand_int <= gold & is_iridium == 0, 1, 0)]
-    df_fert[, is_silver := ifelse(is_gold == 0 & is_iridium == 0, 1, 0)]
+    if(level_select < 14){
+      df_fert[, is_iridium := ifelse(rand_int <= iridium, 1, 0)]
+      df_fert[, is_gold := ifelse(rand_int <= gold & is_iridium == 0, 1, 0)]
+      df_fert[, is_silver := ifelse(is_gold == 0 & is_iridium == 0, 1, 0)]
+    }else{
+      df_fert[, is_iridium := ifelse(rand_int <= iridium, 1, 0)]
+      df_fert[, is_gold := ifelse(is_iridium == 0, 1, 0)]
+      df_fert[, is_silver := 0]
+    }
     df_fert[,rand_int:=NULL]
     df_fert[,iridium:=NULL]
     df_fert[,gold:=NULL]
@@ -103,17 +109,17 @@ additional_crops <- function(df){
   #   df is the data frame of crops
   
   crop_additional_prob <- merge(df, filter_crops_additional, all=FALSE)
-    
-    crop_additional_prob[, rand_int:=runif(.N, 0, 1), list(iter, grow_cycle)]
-    
-    crop_additional_prob[, additional := ifelse(rand_int <= additional_crop_prob, additional_crop_tot, 0) ]
-    crop_additional_prob[, additional := ifelse(is.na(additional), 0, additional) ]
-    
-    crop_additional_prob[,additional_crop_prob:=NULL]
-    crop_additional_prob[,additional_crop_tot:=NULL]
-    crop_additional_prob[,additional_crop:=NULL]
-    crop_additional_prob[,rand_int:=NULL]
-    
+  
+  crop_additional_prob[, rand_int:=runif(.N, 0, 1), list(iter, grow_cycle)]
+  
+  crop_additional_prob[, additional := ifelse(rand_int <= additional_crop_prob, additional_crop_tot, 0) ]
+  crop_additional_prob[, additional := ifelse(is.na(additional), 0, additional) ]
+  
+  crop_additional_prob[,additional_crop_prob:=NULL]
+  crop_additional_prob[,additional_crop_tot:=NULL]
+  crop_additional_prob[,additional_crop:=NULL]
+  crop_additional_prob[,rand_int:=NULL]
+  
   
   print(crop_additional_prob)
   return(crop_additional_prob)
