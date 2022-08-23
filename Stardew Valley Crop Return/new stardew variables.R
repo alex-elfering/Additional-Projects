@@ -13,9 +13,9 @@ library(glue)
 # initial variables ----
 days_season <- 28
 select_scare_crow <- 0
-season_select <- 'Spring'
+season_select <- 'Summer'
 fertilizer_select <- 3
-level_select <- 14
+level_select <- 1
 
 # dummy data  ----
 rand_crops <- c('Blue Jazz', 'Cauliflower', 'Garlic', 'Green Bean', 'Kale', 'Parsnip', 'Potato', 'Tulip', 'Blueberry', 'Corn', 'Hops', 'Hot Pepper', 'Melon', 'Poppy', 'Radish', 'Red Cabbage', 'Summer Spangle', 'Sunflower', 'Tomato', 'Amaranth', 'Artichoke', 'Bok Choy', 'Cranberries', 'Eggplant', 'Fairy Rose', 'Grape', 'Pumpkin', 'Yam', 'Wheat')
