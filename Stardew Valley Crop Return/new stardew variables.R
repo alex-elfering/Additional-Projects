@@ -1,5 +1,5 @@
 # stardew valley crop simulations
-# libraries, dummy data, and variables
+# contains libraries and variables used throughout the scripts
 
 # libraries ----
 library(data.table)
@@ -7,6 +7,7 @@ library(gghighlight)
 library(tidyverse)
 library(ggpattern)
 library(ggbeeswarm)
+library(ggplot2)
 library(glue)
 
 # initial variables ----
