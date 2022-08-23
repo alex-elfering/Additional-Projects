@@ -29,7 +29,7 @@ crop_printer <- function(i = select_crops, n = 10000){
   
   return(crop_list)
 }
-crop_quality <- function(df, level_select = 0, fertilizer_level = 0){
+crop_quality <- function(df, farm_level = 0, fertilizer_level = 0){
   # this function simulates the probability of obtaining a quality of the crop based on the fertilizer selected
   # inputs:
   #   df is the data frame of crops
@@ -72,7 +72,7 @@ crop_quality <- function(df, level_select = 0, fertilizer_level = 0){
     
     df_fert<-cbind(df_quality, farm_levels)
     
-    if(level_select < 14){
+    if(farm_level < 14){
       df_fert[, is_iridium := ifelse(rand_int <= iridium, 1, 0)]
       df_fert[, is_gold := ifelse(rand_int <= gold & is_iridium == 0, 1, 0)]
       df_fert[, is_silver := ifelse(is_gold == 0 & is_iridium == 0, 1, 0)]
