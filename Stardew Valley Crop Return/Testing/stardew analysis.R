@@ -1,7 +1,7 @@
 # the goal of this script is to test the output of the stardew valley data and functions to ensure it makes sense
 
-source("C:/Users/alexe/Desktop/new stardew varibales.R")
-source("C:/Users/alexe/Desktop/new stardew functions.R")
+source("~/GitHub/Additional-Projects/Stardew Valley Crop Return/new stardew variables.R")
+source("~/GitHub/Additional-Projects/Stardew Valley Crop Return/new stardew functions.R")
 
 return_crop_printer <- rbindlist(crop_printer(i = select_crops, n = 10000))
 return_crop_quality <- crop_quality(return_crop_printer, fertilizer_level = fertilizer_select)
