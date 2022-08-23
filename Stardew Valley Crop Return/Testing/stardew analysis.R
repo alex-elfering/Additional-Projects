@@ -1,3 +1,5 @@
+# the goal of this script is to test the output of the stardew valley data and functions to ensure it makes sense
+
 source("C:/Users/alexe/Desktop/new stardew varibales.R")
 source("C:/Users/alexe/Desktop/new stardew functions.R")
 
