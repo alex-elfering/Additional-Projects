@@ -99,7 +99,6 @@ crop_quality <- function(df, farm_level = 0, fertilizer_level = 0){
     
   }
   
-  print(df_filter)
   return(df_filter)
   
 }
@@ -120,8 +119,6 @@ additional_crops <- function(df){
   crop_additional_prob[,additional_crop:=NULL]
   crop_additional_prob[,rand_int:=NULL]
   
-  
-  print(crop_additional_prob)
   return(crop_additional_prob)
   
 }
@@ -135,7 +132,6 @@ crows <- function(df){
   
   df[,rand_int:=NULL]
   
-  print(df)
   return(df)
   
 }
@@ -155,9 +151,6 @@ crop_revenue <- function(df){
   setnames(additional_revenue, "revenue", "add_revenue")
   additional_revenue[,init_revenue := init_revenue*crops]
   
-  #return_crows_join[, real_revenue := ifelse(crow_eats == 1, 0, revenue)]
-  
-  print(additional_revenue)
   return(additional_revenue)
   
 }
