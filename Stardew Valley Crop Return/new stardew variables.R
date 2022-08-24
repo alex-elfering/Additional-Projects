@@ -14,12 +14,10 @@ library(glue)
 days_season <- 28
 select_scare_crow <- 0
 season_select <- 'Summer'
-fertilizer_select <- 3
-level_select <- 1
+fertilizer_select <- 0
+level_select <- 14
 
-# dummy data  ----
-rand_crops <- c('Blue Jazz', 'Cauliflower', 'Garlic', 'Green Bean', 'Kale', 'Parsnip', 'Potato', 'Tulip', 'Blueberry', 'Corn', 'Hops', 'Hot Pepper', 'Melon', 'Poppy', 'Radish', 'Red Cabbage', 'Summer Spangle', 'Sunflower', 'Tomato', 'Amaranth', 'Artichoke', 'Bok Choy', 'Cranberries', 'Eggplant', 'Fairy Rose', 'Grape', 'Pumpkin', 'Yam', 'Wheat')
-
+# load data  ----
 farm_levels <- read.csv('~/farm levels and fertilizer.csv') %>%
   filter(fertilizer == fertilizer_select,
          level == level_select) %>%
@@ -51,10 +49,6 @@ crop_sell <- read.csv('~/crop selling price.csv') %>%
 crop_produces <- read.csv('~/additional crops.csv') %>%
   select(crop) %>%
   mutate(produces = ifelse(crop == 'Cranberries', 2, 1))
-
-crop_cost <- data.table(crop = rand_crops) %>%
-  mutate(pierre = round(runif(nrow(.), 5, 10)),
-         joja_mart = round(runif(nrow(.), 11, 21 )))
 
 # final variables ----
 total_crops <- sum(crop_total_grown$total_grown)

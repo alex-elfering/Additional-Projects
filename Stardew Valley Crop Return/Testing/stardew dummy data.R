@@ -1,5 +1,7 @@
 # this script contains dummy data that was previously used to test stardew valley functions
 
+rand_crops <- c('Blue Jazz', 'Cauliflower', 'Garlic', 'Green Bean', 'Kale', 'Parsnip', 'Potato', 'Tulip', 'Blueberry', 'Corn', 'Hops', 'Hot Pepper', 'Melon', 'Poppy', 'Radish', 'Red Cabbage', 'Summer Spangle', 'Sunflower', 'Tomato', 'Amaranth', 'Artichoke', 'Bok Choy', 'Cranberries', 'Eggplant', 'Fairy Rose', 'Grape', 'Pumpkin', 'Yam', 'Wheat')
+
 crop_growth <- data.table(crop = rand_crops) %>% 
   mutate(days_to_growth = round(runif(nrow(.), 3,7)),
          regrowth = round(runif(nrow(.), 0, 1)),
@@ -32,3 +34,6 @@ crop_sell <- data.table(crop = rand_crops) %>%
 crop_produces <- data.table(crop = rand_crops) %>%
   mutate(produces = round(runif(nrow(.), 0.6, 1.6)))
 
+crop_cost <- data.table(crop = rand_crops) %>%
+  mutate(pierre = round(runif(nrow(.), 5, 10)),
+         joja_mart = round(runif(nrow(.), 11, 21 )))

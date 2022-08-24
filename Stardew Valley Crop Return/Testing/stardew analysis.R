@@ -36,9 +36,9 @@ crop_pct_range <- return_crop_revenue %>%
   ungroup() %>%
   arrange(desc(pct)) %>%
   group_by(crop) %>%
-  summarise(min_total_pct = min(total_revenue),
-            max_total_pct = max(total_revenue),
-            average_pct = mean(total_revenue)) %>%
+  summarise(min_total_pct = min(total_pct),
+            max_total_pct = max(total_pct),
+            average_pct = mean(total_pct)) %>%
   ungroup() %>%
   arrange(desc(average_pct))
 
@@ -48,15 +48,20 @@ gg_crop_range <- crop_pct_range %>%
                              xend = reorder(crop, average_pct),
                              y = min_total_pct,
                              yend = max_total_pct),
-               size = 7,
+               size = 9,
                alpha = 0.2,
                color = 'steelblue') +
   geom_point(mapping = aes(x = reorder(crop, average_pct),
                            y = average_pct),
              size = 7,
+             color = 'white') +
+  geom_point(mapping = aes(x = reorder(crop, average_pct),
+                           y = average_pct),
+             size = 6,
              color = 'steelblue') +
   coord_flip() +
-  scale_y_continuous(labels = function(x) paste0(scales::comma(x), "g")) +
+  #scale_y_continuous(labels = function(x) paste0(scales::comma(x), "g")) +
+  scale_y_continuous(labels = function(x) paste0(round(x*100), '%')) +
   theme(plot.title = element_text(face = 'bold', size = 16),
         plot.subtitle = element_text(size = 14),
         legend.position = 'top',
@@ -79,9 +84,9 @@ gg_crop_range <- crop_pct_range %>%
         panel.grid.major.y = element_blank()) 
 
 ts <- gsub(':', '', Sys.time())
-ggsave(gg_crop_range, file = glue('gg_crop_range {ts}.png'), width = 12, height = 6)
+ggsave(gg_crop_range, file = glue('~/gg_crop_range {ts}.png'), width = 12, height = 6)
 
-# examining how much additional revenue is made when upgrading fertilizer or increasing farm levels
+# examining how much additional revenue is made when upgrading fertilizer or increasing farm levels ----
 compare_fert <- list()
 for(fert in 0:3){
   
