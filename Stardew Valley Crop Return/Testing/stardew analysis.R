@@ -21,6 +21,43 @@ return_crop_revenue %>%
   summarise(min_p = min(pct),
             max_p = max(pct))
 
+# what are the simulated outcomes for total revenue?----
+return_crop_revenue %>%
+  mutate(total_revenue = init_revenue + (additional *add_revenue)) %>%
+  group_by(iter) %>%
+  summarise(total_revenue = sum(total_revenue)) %>%
+  ungroup() %>%
+  ggplot(aes(total_revenue)) +
+  geom_histogram(color = 'white',
+                 fill = 'steelblue') +
+  scale_x_continuous(labels = function(x){ paste0(scales::comma(x), 'g') }) +
+  scale_y_continuous(labels = scales::comma,
+                     expand = c(0, 0)) +
+  labs(title = 'Total Revenue Gained from Growing',
+       subtitle = 'Based on 10,000 simulations',
+       y = '',
+       x = 'Revenue (gold)') +
+  theme(plot.title = element_text(face = 'bold', size = 16),
+        plot.subtitle = element_text(size = 14),
+        legend.position = 'top',
+        legend.background=element_blank(),
+        legend.key=element_blank(),
+        legend.text = element_text(size = 12),
+        plot.title.position = "plot",
+        plot.caption.position =  "plot",
+        plot.caption = element_text(size = 12),
+        axis.title = element_text(size = 12),
+        axis.text = element_text(size = 16, color = '#969696'),
+        axis.text.x.bottom = element_text(size = 12, color = 'black'),
+        axis.line.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        strip.text = ggplot2::element_text(size = 12, hjust = 0, face = 'bold', color = 'black'),
+        strip.background = element_rect(fill = NA),
+        panel.background = ggplot2::element_blank(),
+        axis.line = element_line(colour = "#222222", linetype = "solid"),
+        panel.grid.major.x = ggplot2::element_blank(),
+        panel.grid.major.y = element_line(colour = "#c1c1c1", linetype = "dashed")) 
+
 # examining the range of revenue for each crop based on all simulations ----
 crop_pct_range <- return_crop_revenue %>%
   group_by(iter, crop) %>%
